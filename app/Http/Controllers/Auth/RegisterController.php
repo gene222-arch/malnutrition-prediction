@@ -53,6 +53,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'available_person_on_absence' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'phone_number' => ['required', 'string']
         ]);
     }
 
@@ -69,6 +72,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user
+            ->details()
+            ->create([
+                'available_person_on_absence' => $data['available_person_on_absence'],
+                'address' => $data['address'],
+                'phone_number' => $data['phone_number']
+            ]);
         
         $user->assignRole('Parent');
 
