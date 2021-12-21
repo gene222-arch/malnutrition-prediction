@@ -6,7 +6,7 @@
     </button>
   </div>
 	<div class="p-4">
-		<div class="row mb-2 justify-content-center align-items-center">
+		<div class="row mb-5 justify-content-center align-items-center">
 			<div class="col">
 				<h6><strong>{{ Auth::user()->name }}</strong></h6>
 				<small>{{ Auth::user()->email }}</small>
@@ -14,11 +14,16 @@
 		</div>
       <ul class="list-unstyled components mb-5">
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
-				<a href="/"><span class="fa fa-home mr-3"></span> Home</a>
+				<a href="/"><span class="fa fa-home mr-3"></span> Dashboard</a>
 			</li>
-			<li class="{{ request()->is('tournaments') ? 'active' : '' }}">
-				<a href="/tournaments"><i class="fas fa-poll-h mr-3"></i> Tournaments</a>
-			</li>
+			@hasrole('Administrator')
+				<li class="{{ request()->is('parents') ? 'active' : '' }}">
+					<a href="/parents"><i class="fas fa-user mr-3"></i> Parents</a>
+				</li>
+				<li class="{{ request()->is('check-ups') ? 'active' : '' }}">
+					<a href="/check-ups"><i class="fas fa-hospital-user mr-3"></i>Check ups</a>
+				</li>
+			@endhasrole
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
 					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>
