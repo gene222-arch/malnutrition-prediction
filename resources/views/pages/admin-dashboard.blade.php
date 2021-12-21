@@ -45,10 +45,12 @@
                         <i class="fas fa-user-tie fa-3x text-danger"></i>
                     </div>
                 </div>
-              </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 container-fluid">
+            <div id="container" class="mt-5"></div>
         </div>
     </div>
-    <div id="container" class="mt-5"></div>
 @endsection
 @section('js')
     <script src="https://code.highcharts.com/highcharts.js"></script>
