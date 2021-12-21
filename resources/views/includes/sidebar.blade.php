@@ -26,7 +26,7 @@
 			@endhasrole
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
-					<p><i class="fas fa-sign-out-alt mr-3"></i>Logout</p>
+					<p><i class="fas fa-sign-out-alt mr-3 text-danger"></i>Logout</p>
 					<form action="{{ route('logout') }}" method="POST" id="logout__form">
 						@csrf
 					</form>
