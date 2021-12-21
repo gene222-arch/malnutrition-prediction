@@ -16,7 +16,7 @@ class CheckUpsController extends Controller
      */
     public function index()
     {
-        $checkUps = CheckUp::with('details', 'result')->get();
+        $checkUps = CheckUp::with('details', 'result')->paginate(10);
 
         return view('pages.check-ups.index', [
             'checkUps' => $checkUps
