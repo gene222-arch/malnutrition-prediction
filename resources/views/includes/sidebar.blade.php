@@ -17,10 +17,10 @@
 				<a href="/"><span class="fa fa-home mr-3"></span> Dashboard</a>
 			</li>
 			@hasrole('Administrator')
-				<li class="{{ request()->is('parents') ? 'active' : '' }}">
+				<li class="{{ request()->is('parents/*') ? 'active' : '' }}">
 					<a href="/parents"><i class="fas fa-user mr-3"></i> Parents</a>
 				</li>
-				<li class="{{ request()->is('check-ups') ? 'active' : '' }}">
+				<li class="{{ request()->is('check-ups/*') ? 'active' : '' }}">
 					<a href="/check-ups"><i class="fas fa-hospital-user mr-3"></i>Check ups</a>
 				</li>
 			@endhasrole
