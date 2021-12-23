@@ -88,8 +88,17 @@ class CheckUpsController extends Controller
      */
     public function edit(CheckUp $checkUp)
     {
+        $malnutritionSymptoms = MalnutritionSymptom::all();
+        
+        $malnutritionSymptoms = $malnutritionSymptoms
+            ->mapToGroups(function ($item, $key) {
+                return [$item['type'] => [$item['id'] => $item['name']]];
+            })
+            ->all();
+
         return view('pages.check-ups.edit', [
-            'checkUp' => $checkUp
+            'checkUp' => $checkUp,
+            'malnutritionSymptoms' => $malnutritionSymptoms
         ]);
     }
 
@@ -102,10 +111,16 @@ class CheckUpsController extends Controller
      */
     public function update(UpdateRequest $request, CheckUp  $checkUp)
     {
-        $checkUp->update($request->validated());
+        $malnutritionSymptomIds = $request
+            ->collect('malnutrition_symptom_ids')
+            ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
 
-        return redirect()->back()->with([
-            'messageOnSuccess' => 'Check up updated successfully'
+        $checkUp->update($request->validated());
+        $checkUp->details()->delete();
+        $checkUp->details()->createMany($malnutritionSymptomIds);
+
+        return Redirect::route('check-ups.index')->with([
+            'message' => 'Check up updated successfully'
         ]);
     }
 

@@ -141,7 +141,7 @@
                                                         value={{ $id }}
                                                         name="malnutrition_symptom_ids[]"
                                                         type="checkbox"
-                                                        checked={{ in_array($id, array_values(old('malnutrition_symptom_ids')) ?? []) }}
+                                                        {{ in_array($id, array_values(old('malnutrition_symptom_ids') ?? [])) && 'checked' }}
                                                     >
                                                 </div>
                                             </div>
