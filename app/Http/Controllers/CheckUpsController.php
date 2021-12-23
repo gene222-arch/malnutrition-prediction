@@ -60,7 +60,9 @@ class CheckUpsController extends Controller
             ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
 
         $checkUp = CheckUp::create($request->validated() + [
-            'reserved_at' => Carbon::parse($request->reserved_at)
+            'reserved_at' => Carbon::parse($request->reserved_at),
+            'height_in_inches' => ($request->height_in_cm * 0.393701),
+            'weight_in_pounds' => ($request->weight_in_kg * 2.20462) 
         ]);
         $checkUp->details()->createMany($malnutritionSymptomIds);
 
@@ -115,7 +117,10 @@ class CheckUpsController extends Controller
             ->collect('malnutrition_symptom_ids')
             ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
 
-        $checkUp->update($request->validated());
+        $checkUp->update($request->validated() + [
+            'height_in_inches' => ($request->height_in_cm * 0.393701),
+            'weight_in_pounds' => ($request->weight_in_kg * 2.20462) 
+        ]);
         $checkUp->details()->delete();
         $checkUp->details()->createMany($malnutritionSymptomIds);
 
