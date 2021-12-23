@@ -20,10 +20,10 @@
 				<li class="{{ request()->is('parents/*') ? 'active' : '' }}">
 					<a href="/parents"><i class="fas fa-user mr-3"></i> Parents</a>
 				</li>
-				<li class="{{ request()->is('check-ups/*') ? 'active' : '' }}">
-					<a href="/check-ups"><i class="fas fa-hospital-user mr-3"></i>Check ups</a>
-				</li>
 			@endhasrole
+			<li class="{{ request()->is('check-ups/*') ? 'active' : '' }}">
+				<a href="/check-ups"><i class="fas fa-hospital-user mr-3"></i>Check ups</a>
+			</li>
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
 					<p><i class="fas fa-sign-out-alt mr-3 text-danger"></i>Logout</p>

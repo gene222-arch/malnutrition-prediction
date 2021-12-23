@@ -12,6 +12,7 @@ use App\Http\Requests\CheckUp\StoreRequest;
 use App\Http\Requests\CheckUp\UpdateRequest;
 use App\Models\User;
 use App\Services\BMIComputerServices;
+use Illuminate\Support\Facades\Auth;
 
 class CheckUpsController extends Controller
 {
@@ -22,7 +23,16 @@ class CheckUpsController extends Controller
      */
     public function index()
     {
-        $checkUps = CheckUp::with('details')->paginate(10);
+        $checkUps = CheckUp::with('details')->orderByDesc('created_at')->paginate(10);
+
+        if (Auth::user()->hasRole('Parent')) 
+        {
+            $checkUps = CheckUp::query()
+                ->where('parent_id', Auth::user()->id)
+                ->with('details')
+                ->orderByDesc('created_at')
+                ->paginate(10);
+        }
 
         return view('pages.check-ups.index', [
             'checkUps' => $checkUps
