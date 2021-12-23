@@ -10,24 +10,24 @@
         <table class="table table-striped mb-5 rounded">
             <thead>
                 <tr class="table-info">
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
                     <th scope="col">Date of Reservation</th>
                     <th scope="col">Date of Visit</th>
-                    <th scope="col">Ended at</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($checkUps as $checkUp)
-                <tr>
-                    <th scope="row">{{ $checkUp->id }}</th>
-                    <td>{{ $checkUp->patient_name }}</td>
-                    <td>{{ $checkUp->age }}</td>
-                    <td>{{ $checkUp->reserved_at }}</td>
-                    <td>{{ $checkUp->visited_at }}</td>
-                    <td>{{ $checkUp->ended_at }}</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <a href="{{ route('check-ups.edit', $checkUp->id) }}">
+                                {{ $checkUp->patient_name }}
+                            </a>
+                        </td>
+                        <td>{{ $checkUp->age }}</td>
+                        <td>{{ $checkUp->reserved_at }}</td>
+                        <td>{{ $checkUp->visited_at }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
