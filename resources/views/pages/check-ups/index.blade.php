@@ -22,29 +22,42 @@
                     <th scope="col">Age</th>
                     <th scope="col">Date of Reservation</th>
                     <th scope="col">Date of Visit</th>
-                    <th scope="col">Action</th>
+                    @hasanyrole('Administrator|Barangay Nutrition Scholar')
+                        <th scope="col">Action</th>
+                    @endhasanyrole
                 </tr>
             </thead>
             <tbody>
                 @foreach($checkUps as $checkUp)
                     <tr>
-                        <td>
-                            <a href="{{ route('check-ups.edit', $checkUp->id) }}">
-                                {{ $checkUp->patient_name }}
-                            </a>
-                        </td>
+                        @hasanyrole('Administrator|Barangay Nutrition Scholar')
+                            <td>
+                                <a href="{{ route('check-ups.edit', $checkUp->id) }}">
+                                    {{ $checkUp->patient_name }}
+                                </a>
+                            </td>
+                        @endhasanyrole
+                        @hasrole('Parent')
+                            <td>
+                                <a href="{{ route('check-ups.show', $checkUp->id) }}">
+                                    {{ $checkUp->patient_name }}
+                                </a>
+                            </td>
+                        @endhasrole
                         <td>{{ $checkUp->age }}</td>
                         <td>{{ $checkUp->reserved_at }}</td>
                         <td>{{ $checkUp->visited_at }}</td>
-                        <td>
-                            <form action="{{ route('check-ups.destroy', $checkUp->id) }}" method="POST">
-                                @csrf
-                                @method("DELETE")
-                                <button type="submit" class="btn btn-outline-danger">
-                                    <i class="fas fa-user-minus"></i>
-                                </button>
-                            </form>
-                        </td>
+                        @hasanyrole('Administrator|Barangay Nutrition Scholar')
+                            <td>
+                                <form action="{{ route('check-ups.destroy', $checkUp->id) }}" method="POST">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        <i class="fas fa-user-minus"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        @endhasanyrole
                     </tr>
                 @endforeach
             </tbody>

@@ -103,7 +103,11 @@ class CheckUpsController extends Controller
      */
     public function show(CheckUp $checkUp)
     {
-        return $checkUp;
+        $checkUp = CheckUp::with(['details.symptom', 'result'])->find($checkUp->id);
+        
+        return view('pages.check-ups.show', [
+            'checkUp' => $checkUp
+        ]);
     }
 
     /**

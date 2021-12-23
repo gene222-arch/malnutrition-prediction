@@ -15,4 +15,9 @@ class CheckUpDetail extends Model
     ];
 
     public $timestamps = false;
+
+    public function symptom()
+    {
+        return $this->belongsTo(MalnutritionSymptom::class, 'malnutrition_symptom_id');
+    }
 }
