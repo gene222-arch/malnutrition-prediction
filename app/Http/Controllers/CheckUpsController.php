@@ -115,10 +115,14 @@ class CheckUpsController extends Controller
      * @param  \App\Models\CheckUp  $checkUp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CheckUp  $checkUp)
+    public function destroy(CheckUp $checkUp)
     {
+        $checkUp->details()->delete();
+        $checkUp->result()?->delete();
         $checkUp->delete();
 
-        return view('pages.check-ups.index');
+        return redirect()->back()->with([
+            'message' => 'Patient data deleted successfully'
+        ]);
     }
 }

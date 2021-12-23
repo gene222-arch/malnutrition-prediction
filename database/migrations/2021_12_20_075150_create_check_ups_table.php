@@ -37,7 +37,7 @@ class CreateCheckUpsTable extends Migration
             $table->unique(['check_up_id', 'malnutrition_symptom_id']);
         });
 
-        Schema::create('check_up_result', function (Blueprint $table) {
+        Schema::create('check_up_results', function (Blueprint $table) {
             $table->id();
             $table->foreignId('check_up_id');
             $table->string('result');
