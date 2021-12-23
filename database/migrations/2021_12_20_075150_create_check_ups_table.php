@@ -32,7 +32,9 @@ class CreateCheckUpsTable extends Migration
         Schema::create('check_up_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('check_up_id');
-            $table->foreignId('malnutrition_symptoms_id');
+            $table->foreignId('malnutrition_symptom_id');
+
+            $table->unique(['check_up_id', 'malnutrition_symptom_id']);
         });
 
         Schema::create('check_up_result', function (Blueprint $table) {

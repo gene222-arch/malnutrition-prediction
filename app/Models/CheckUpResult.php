@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CheckUpResult extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'check_up_id',
+        'result'
+    ];
+
+    public $timestamps = false;
 }

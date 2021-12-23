@@ -11,6 +11,8 @@ class CheckUpDetail extends Model
 
     protected $fillable = [
         'check_up_id',
-        'malnutrition_symptoms_id',
+        'malnutrition_symptom_id',
     ];
+
+    public $timestamps = false;
 }

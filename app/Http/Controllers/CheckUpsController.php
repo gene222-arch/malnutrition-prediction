@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CheckUp\StoreRequest;
-use App\Http\Requests\CheckUp\UpdateRequest;
+use Carbon\Carbon;
 use App\Models\CheckUp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\MalnutritionSymptom;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\CheckUp\StoreRequest;
+use App\Http\Requests\CheckUp\UpdateRequest;
 
 class CheckUpsController extends Controller
 {
@@ -16,7 +20,7 @@ class CheckUpsController extends Controller
      */
     public function index()
     {
-        $checkUps = CheckUp::with('details', 'result')->paginate(10);
+        $checkUps = CheckUp::with('details')->paginate(10);
 
         return view('pages.check-ups.index', [
             'checkUps' => $checkUps
@@ -30,7 +34,17 @@ class CheckUpsController extends Controller
      */
     public function create()
     {
-        return view('pages.check-ups.create');
+        $malnutritionSymptoms = MalnutritionSymptom::all();
+        
+        $malnutritionSymptoms = $malnutritionSymptoms
+            ->mapToGroups(function ($item, $key) {
+                return [$item['type'] => [$item['id'] => $item['name']]];
+            })
+            ->all();
+
+        return view('pages.check-ups.create', [
+            'malnutritionSymptoms' => $malnutritionSymptoms
+        ]);
     }
 
     /**
@@ -41,9 +55,16 @@ class CheckUpsController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        CheckUp::create($request->validated());
+        $malnutritionSymptomIds = $request
+            ->collect('malnutrition_symptom_ids')
+            ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
 
-        return redirect()->back()->with([
+        $checkUp = CheckUp::create($request->validated() + [
+            'reserved_at' => Carbon::parse($request->reserved_at)
+        ]);
+        $checkUp->details()->createMany($malnutritionSymptomIds);
+
+        return Redirect::route('check-ups.index')->with([
             'messageOnSuccess' => 'Check up created successfully'
         ]);
     }

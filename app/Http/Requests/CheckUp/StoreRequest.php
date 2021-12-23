@@ -27,13 +27,9 @@ class StoreRequest extends FormRequest
             'patient_name' => ['required', 'string'],
             'age' => ['required', 'integer', 'min:0', 'max:2'],
             'height_in_cm' => ['required', 'numeric'],
-            'height_in_inches' => ['required', 'numeric'],
             'weight_in_kg' => ['required', 'numeric'],
-            'weight_in_pounds' => ['required', 'numeric'],
             'reserved_at' => ['required', 'date'],
-            'visited_at' => ['required', 'date'],
-            'ended_at' => ['required', 'date'],
-
+            'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id']
         ];
     }
 }

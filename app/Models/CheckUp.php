@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class CheckUp extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'patient_name',
         'age',
         'height_in_cm',
@@ -21,9 +24,23 @@ class CheckUp extends Model
         'ended_at'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($checkUp) {
+            $checkUp->user_id = Auth::user()->id;
+            $checkUp->visited_at = Carbon::now();
+        });
+
+        self::updating(function ($checkUp) {
+            $checkUp->visited_at = Carbon::now();
+        });
+    }
+
     public function details()
     {
-        return $this->belongsToMany(CheckUpDetail::class, 'check_up_details');
+        return $this->hasMany(CheckUpDetail::class);
     }
 
     public function result()
