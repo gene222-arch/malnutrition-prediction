@@ -79,7 +79,7 @@ class CheckUpsController extends Controller
             ]);
 
         return Redirect::route('check-ups.index')->with([
-            'messageOnSuccess' => 'Check up created successfully'
+            'successMessageOnSuccess' => 'Check up created successfully'
         ]);
     }
 
@@ -144,7 +144,7 @@ class CheckUpsController extends Controller
         ]);
 
         return Redirect::route('check-ups.index')->with([
-            'message' => 'Check up updated successfully'
+            'successMessage' => 'Check up updated successfully'
         ]);
     }
 
@@ -161,7 +161,7 @@ class CheckUpsController extends Controller
         $checkUp->delete();
 
         return redirect()->back()->with([
-            'message' => 'Patient data deleted successfully'
+            'successMessage' => 'Patient data deleted successfully'
         ]);
     }
 }
