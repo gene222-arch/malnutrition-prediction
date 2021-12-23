@@ -16,7 +16,7 @@ class CreateCheckUpsTable extends Migration
     {
         Schema::create('check_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignId('parent_id');
             $table->string('patient_name');
             $table->unsignedInteger('age')->default(0);
             $table->unsignedDecimal('height_in_cm')->default(0);
@@ -40,6 +40,7 @@ class CreateCheckUpsTable extends Migration
         Schema::create('check_up_results', function (Blueprint $table) {
             $table->id();
             $table->foreignId('check_up_id');
+            $table->unsignedDecimal('bmi')->default(0);
             $table->string('result');
         });
     }
