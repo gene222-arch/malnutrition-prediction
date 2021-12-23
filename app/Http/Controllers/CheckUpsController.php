@@ -10,6 +10,7 @@ use App\Models\MalnutritionSymptom;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CheckUp\StoreRequest;
 use App\Http\Requests\CheckUp\UpdateRequest;
+use App\Models\User;
 use App\Services\BMIComputerServices;
 
 class CheckUpsController extends Controller
@@ -44,7 +45,8 @@ class CheckUpsController extends Controller
             ->all();
 
         return view('pages.check-ups.create', [
-            'malnutritionSymptoms' => $malnutritionSymptoms
+            'malnutritionSymptoms' => $malnutritionSymptoms,
+            'parents' => User::role('Parent')->get(['id', 'name'])
         ]);
     }
 
@@ -112,7 +114,8 @@ class CheckUpsController extends Controller
 
         return view('pages.check-ups.edit', [
             'checkUp' => $checkUp,
-            'malnutritionSymptoms' => $malnutritionSymptoms
+            'malnutritionSymptoms' => $malnutritionSymptoms,
+            'parents' => User::role('Parent')->get(['id', 'name'])
         ]);
     }
 
@@ -128,6 +131,7 @@ class CheckUpsController extends Controller
         $malnutritionSymptomIds = $request
             ->collect('malnutrition_symptom_ids')
             ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
+            
         $heightInInches = ($request->height_in_cm * 0.393701);
         $weightInPounds = ($request->weight_in_kg * 2.20462);
         $bmi = BMIComputerServices::compute($weightInPounds, $heightInInches);

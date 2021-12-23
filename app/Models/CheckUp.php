@@ -12,7 +12,7 @@ class CheckUp extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'parent_id',
         'patient_name',
         'age',
         'height_in_cm',
@@ -29,7 +29,6 @@ class CheckUp extends Model
         parent::boot();
 
         self::creating(function ($checkUp) {
-            $checkUp->user_id = Auth::user()->id;
             $checkUp->visited_at = Carbon::now();
         });
 

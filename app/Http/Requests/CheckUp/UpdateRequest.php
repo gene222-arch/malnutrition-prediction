@@ -24,6 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'parent_id' => ['required', 'integer', 'exists:users,id'],
             'patient_name' => ['required', 'string'],
             'age' => ['required', 'integer', 'min:0', 'max:2'],
             'height_in_cm' => ['required', 'numeric'],

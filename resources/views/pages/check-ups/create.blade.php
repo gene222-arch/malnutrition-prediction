@@ -22,6 +22,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Age</span>
+                                    <select 
+                                        class="form-control @error('parent_id') is-invalid @enderror"
+                                        name="parent_id"
+                                    >
+                                        <option value="">Select Guardian</option>
+                                        @foreach($parents as $parent)
+                                            <option value={{ $parent->id }} {{ old('parent_id') === $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
+                                        @endforeach 
+                                    </select>
+                                    @error('parent_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
