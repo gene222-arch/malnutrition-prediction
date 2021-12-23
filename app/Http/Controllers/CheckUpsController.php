@@ -10,6 +10,7 @@ use App\Models\MalnutritionSymptom;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CheckUp\StoreRequest;
 use App\Http\Requests\CheckUp\UpdateRequest;
+use App\Services\BMIComputerServices;
 
 class CheckUpsController extends Controller
 {
@@ -58,13 +59,24 @@ class CheckUpsController extends Controller
         $malnutritionSymptomIds = $request
             ->collect('malnutrition_symptom_ids')
             ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
+        $heightInInches = ($request->height_in_cm * 0.393701);
+        $weightInPounds = ($request->weight_in_kg * 2.20462);
+        $bmi = BMIComputerServices::compute($weightInPounds, $heightInInches);
 
         $checkUp = CheckUp::create($request->validated() + [
             'reserved_at' => Carbon::parse($request->reserved_at),
-            'height_in_inches' => ($request->height_in_cm * 0.393701),
-            'weight_in_pounds' => ($request->weight_in_kg * 2.20462) 
+            'height_in_inches' => $heightInInches,
+            'weight_in_pounds' => $weightInPounds
         ]);
+
         $checkUp->details()->createMany($malnutritionSymptomIds);
+
+        $checkUp
+            ->result()
+            ->create([
+                'bmi' => $bmi,
+                'result' => BMIComputerServices::interpret($bmi)
+            ]);
 
         return Redirect::route('check-ups.index')->with([
             'messageOnSuccess' => 'Check up created successfully'
@@ -116,13 +128,20 @@ class CheckUpsController extends Controller
         $malnutritionSymptomIds = $request
             ->collect('malnutrition_symptom_ids')
             ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
+        $heightInInches = ($request->height_in_cm * 0.393701);
+        $weightInPounds = ($request->weight_in_kg * 2.20462);
+        $bmi = BMIComputerServices::compute($weightInPounds, $heightInInches);
 
         $checkUp->update($request->validated() + [
-            'height_in_inches' => ($request->height_in_cm * 0.393701),
-            'weight_in_pounds' => ($request->weight_in_kg * 2.20462) 
+            'height_in_inches' => $heightInInches,
+            'weight_in_pounds' => $weightInPounds
         ]);
         $checkUp->details()->delete();
         $checkUp->details()->createMany($malnutritionSymptomIds);
+        $checkUp->result()->update([
+            'bmi' => $bmi,
+            'result' => BMIComputerServices::interpret($bmi)
+        ]);
 
         return Redirect::route('check-ups.index')->with([
             'message' => 'Check up updated successfully'

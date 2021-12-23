@@ -11,6 +11,7 @@ class CheckUpResult extends Model
 
     protected $fillable = [
         'check_up_id',
+        'bmi',
         'result'
     ];
 
