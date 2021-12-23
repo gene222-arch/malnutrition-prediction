@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckUp;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +29,23 @@ class HomeController extends Controller
     {   
         $user = Auth::user();
 
-        if ($user->hasRole('Administrator')) {
-            return view('pages.admin-dashboard');
+        if ($user->hasRole('Administrator')) 
+        {
+            $monthlyCheckups = CheckUp::query()
+                ->get()
+                ->groupBy(fn ($val) => Carbon::parse($val->reserved_at)->format('m'))
+                ->map(fn ($result) => $result->count());
+
+            $checkUpsCount = CheckUp::count();
+            $parentsCount = User::role('Parent')->count();
+            $bnsCount = User::role('Barangay Nutrition Scholar')->count();
+
+            return view('pages.admin-dashboard', [
+                'monthlyCheckups' => $monthlyCheckups,
+                'checkUpsCount' => $checkUpsCount,
+                'parentsCount' => $parentsCount,
+                'bnsCount' => $bnsCount
+            ]);
         }
 
         return view('pages.dashboard');

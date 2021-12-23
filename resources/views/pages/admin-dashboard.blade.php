@@ -7,7 +7,7 @@
                 <div class="row align-items-center">
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8">
                         <div class="card-body text-success">
-                            <h5 class="card-title"><h3><strong>122</strong></h3></h5>
+                            <h5 class="card-title"><h3><strong>{{ $checkUpsCount }}</strong></h3></h5>
                             <p class="card-text text-secondary">Check Ups</p>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                 <div class="row align-items-center">
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8">
                         <div class="card-body text-info">
-                            <h5 class="card-title"><h3><strong>122</strong></h3></h5>
+                            <h5 class="card-title"><h3><strong>{{ $parentsCount }}</strong></h3></h5>
                             <p class="card-text text-secondary">Parents</p>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="row align-items-center">
                     <div class="col-8 col-sm-8 col-md-8 col-lg-8">
                         <div class="card-body text-danger">
-                            <h5 class="card-title"><h3><strong>122</strong></h3></h5>
+                            <h5 class="card-title"><h3><strong>{{ $bnsCount }}</strong></h3></h5>
                             <p class="card-text text-secondary">Barangay Nutrition Scholar</p>
                         </div>
                     </div>
@@ -55,19 +55,26 @@
 @section('js')
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
+        let monthlyCheckups = JSON.parse('<?= $monthlyCheckups ?>');
+        let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        const months = Object.keys(monthlyCheckups).map(month => Number(month) - 1);
+
+        data = data.map((datum, index) => months.includes(index) ? monthlyCheckups[index + 1] : datum);
+
         Highcharts.chart('container', {
             title: {
-                text: 'Races'
+                text: 'Monthly Checkups'
             },
             subtitle: {
                 text: 'Source: positronx.io'
             },
             xAxis: {
-                categories: [ 'North Race', 'South Race', 'Summer Race' ]
+                categories: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
             },
             yAxis: {
                 title: {
-                    text: 'Number of Players',
+                    text: 'Total',
                 }
             },
             legend: {
@@ -81,8 +88,8 @@
                 }
             },
             series: [{
-                name: 'Players',
-                data: [0, 0, 5],
+                name: 'Checkups count',
+                data,
             }],
             responsive: {
                 rules: [{
