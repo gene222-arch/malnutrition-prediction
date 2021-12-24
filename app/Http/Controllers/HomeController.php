@@ -48,6 +48,15 @@ class HomeController extends Controller
             ]);
         }
 
+        if ($user->hasRole('Parent')) 
+        {
+            $checkUpsCount = CheckUp::where('parent_id', $user->id)->count();
+
+            return view('pages.parents.dashboard', [
+                'checkUpsCount' => $checkUpsCount
+            ]);
+        }
+
         return view('pages.dashboard');
     }
 }
