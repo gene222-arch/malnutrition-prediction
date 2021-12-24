@@ -30,7 +30,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('storage/app/mulawin.png') }}" alt="" width="32" height="36"> 
-                    <strong>Mulawin</strong>
+                    <strong>Pais Iatros</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

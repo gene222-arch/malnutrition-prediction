@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrgyNutritionScholarsController;
 use App\Http\Controllers\CheckUpsController;
 use App\Http\Controllers\ParentsController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('check-ups', CheckUpsController::class);
     Route::resource('parents', ParentsController::class);
+    Route::resource('brgy-nutrition-scholars', BrgyNutritionScholarsController::class);
 });

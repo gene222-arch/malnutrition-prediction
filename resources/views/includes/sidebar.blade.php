@@ -21,6 +21,11 @@
 					<a href="/parents"><i class="fas fa-user mr-3"></i> Parents</a>
 				</li>
 			@endhasrole
+			@hasrole('Administrator')
+				<li class="{{ request()->is('brgy-nutrition-scholars/*') ? 'active' : '' }}">
+					<a href="/brgy-nutrition-scholars"><i class="fas fa-user mr-3"></i> BNS</a>
+				</li>
+			@endhasrole
 			<li class="{{ request()->is('check-ups/*') ? 'active' : '' }}">
 				<a href="/check-ups"><i class="fas fa-hospital-user mr-3"></i>Check ups</a>
 			</li>
