@@ -16,6 +16,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckUpsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('role:Administrator|Barangay Nutrition Scholar')
+            ->except([
+                'index',
+                'show'
+            ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

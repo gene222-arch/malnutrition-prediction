@@ -19,8 +19,12 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () 
+{
     Route::resource('check-ups', CheckUpsController::class);
+
     Route::resource('parents', ParentsController::class);
+
     Route::resource('brgy-nutrition-scholars', BrgyNutritionScholarsController::class);
+
 });

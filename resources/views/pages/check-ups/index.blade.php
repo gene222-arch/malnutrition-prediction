@@ -10,11 +10,13 @@
                 </button>
             </div>
         @endif
-        <div class="card mb-2 rounded">
-            <a href="{{ route('check-ups.create') }}">
-                <i class="fas fa-plus fa-3x p-4 text-success"></i>
-            </a>
-        </div>
+        @hasanyrole('Administrator|Barangay Nutrition Scholar')
+            <div class="card mb-2 rounded">
+                <a href="{{ route('check-ups.create') }}">
+                    <i class="fas fa-plus fa-3x p-4 text-success"></i>
+                </a>
+            </div>
+        @endhasanyrole
         <table class="table table-striped mb-5 rounded">
             <thead>
                 <tr class="table-info">
