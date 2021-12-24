@@ -29,7 +29,7 @@ class HomeController extends Controller
     {   
         $user = Auth::user();
 
-        if ($user->hasRole('Administrator')) 
+        if ($user->hasRole(['Administrator', 'Barangay Nutrition Scholar'])) 
         {
             $monthlyCheckups = CheckUp::query()
                 ->get()
@@ -39,6 +39,15 @@ class HomeController extends Controller
             $checkUpsCount = CheckUp::count();
             $parentsCount = User::role('Parent')->count();
             $bnsCount = User::role('Barangay Nutrition Scholar')->count();
+
+            if ($user->hasRole('Barangay Nutrition Scholar')) 
+            {
+                return view('pages.bns.dashboard', [
+                    'monthlyCheckups' => $monthlyCheckups,
+                    'checkUpsCount' => $checkUpsCount,
+                    'parentsCount' => $parentsCount
+                ]);
+            }
 
             return view('pages.admin-dashboard', [
                 'monthlyCheckups' => $monthlyCheckups,
@@ -56,7 +65,5 @@ class HomeController extends Controller
                 'checkUpsCount' => $checkUpsCount
             ]);
         }
-
-        return view('pages.dashboard');
     }
 }
