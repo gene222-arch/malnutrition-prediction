@@ -7,10 +7,10 @@
         <div class="card-header rounded bg-light border mb-2">
             <div class="row">
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <h4 class="display-5"><strong>Edit Patient</strong></h4>
+                    <h4 class="lead"><strong>Update Patient</strong></h4>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                    <button class="btn btn-outline-success">Save</button>
+                    <button class="btn btn-success">Save</button>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Age</span>
+                                    <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Parent</span>
                                     <select 
                                         class="form-control @error('parent_id') is-invalid @enderror"
                                         name="parent_id"
