@@ -4,7 +4,7 @@
     <div class="container mt-5">
         @if (Session::has('successMessage'))
             <div class="alert alert-success" role="alert">
-                <strong>Success:</strong>{{ Session::get('successMessage') }}
+                <strong>Success:</strong> {{ Session::get('successMessage') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

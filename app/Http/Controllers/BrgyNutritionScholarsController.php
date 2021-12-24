@@ -6,10 +6,17 @@ use App\Http\Requests\BNS\StoreRequest;
 use App\Http\Requests\BNS\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class BrgyNutritionScholarsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:Administrator')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,12 +49,17 @@ class BrgyNutritionScholarsController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $bns = User::create($request->validated());
+        $data = Arr::collapse([$request->validated(), [
+            'password' => Hash::make($request->password)
+        ]]);
+
+        $bns = User::create($data);
+
         $bns->assignRole('Barangay Nutrition Scholar');
 
         return Redirect::route('brgy-nutrition-scholars.index')
             ->with([
-                'messageOnSuccess' => 'Barangay Nutrition Scholar created successfully'
+                'successMessage' => 'Barangay Nutrition Scholar created successfully'
             ]);
     }
 
@@ -87,11 +99,16 @@ class BrgyNutritionScholarsController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $bns = User::find($id);
-        $bns->update($request->validated());
+
+        $data = Arr::collapse([$request->validated(), [
+            'password' => Hash::make($request->password)
+        ]]);
+
+        $bns->update($data);
 
         return Redirect::route('brgy-nutrition-scholars.index')
             ->with([
-                'messageOnSuccess' => 'Barangay Nutrition Scholar updated successfully'
+                'successMessage' => 'Barangay Nutrition Scholar updated successfully'
             ]);
     }
 
@@ -107,7 +124,7 @@ class BrgyNutritionScholarsController extends Controller
 
         return Redirect::route('brgy-nutrition-scholars.index')
             ->with([
-                'messageOnSuccess' => 'Barangay Nutrition Scholar deleted successfully'
+                'successMessage' => 'Barangay Nutrition Scholar deleted successfully'
             ]);
     }
 }

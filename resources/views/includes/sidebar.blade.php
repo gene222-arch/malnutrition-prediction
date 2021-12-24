@@ -16,7 +16,7 @@
 			<li class="{{ request()->is('/') ? 'active' : '' }}">
 				<a href="/"><span class="fa fa-home mr-3"></span> Dashboard</a>
 			</li>
-			@hasrole('Administrator')
+			@hasrole('Administrator|Barangay Nutrition Scholar')
 				<li class="{{ request()->is('parents/*') ? 'active' : '' }}">
 					<a href="/parents"><i class="fas fa-user mr-3"></i> Parents</a>
 				</li>
