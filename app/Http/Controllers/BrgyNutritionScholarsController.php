@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BNS\StoreRequest;
+use App\Http\Requests\BNS\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class BrgyNutritionScholarsController extends Controller
 {
@@ -28,18 +31,24 @@ class BrgyNutritionScholarsController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.bns.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\BNS\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $bns = User::create($request->validated());
+        $bns->assignRole('Barangay Nutrition Scholar');
+
+        return Redirect::route('brgy-nutrition-scholars.index')
+            ->with([
+                'messageOnSuccess' => 'Barangay Nutrition Scholar created successfully'
+            ]);
     }
 
     /**
@@ -61,19 +70,29 @@ class BrgyNutritionScholarsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bns = User::find($id);
+
+        return view('pages.bns.edit', [
+            'bns' => $bns
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\BNS\UpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $bns = User::find($id);
+        $bns->update($request->validated());
+
+        return Redirect::route('brgy-nutrition-scholars.index')
+            ->with([
+                'messageOnSuccess' => 'Barangay Nutrition Scholar updated successfully'
+            ]);
     }
 
     /**
@@ -84,6 +103,11 @@ class BrgyNutritionScholarsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+
+        return Redirect::route('brgy-nutrition-scholars.index')
+            ->with([
+                'messageOnSuccess' => 'Barangay Nutrition Scholar deleted successfully'
+            ]);
     }
 }
