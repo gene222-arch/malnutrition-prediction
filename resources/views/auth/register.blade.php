@@ -40,6 +40,48 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="available_person_on_absence" class="col-md-4 col-form-label text-md-right">{{ __('Available Person on Absence') }}</label>
+                        
+                            <div class="col-md-6">
+                                <input id="available_person_on_absence" type="text" class="form-control @error('available_person_on_absence') is-invalid @enderror" name="available_person_on_absence" required autocomplete="new-available_person_on_absence">
+                        
+                                @error('available_person_on_absence')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                        
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" required autocomplete="new-address">
+                        
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+                        
+                            <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" required autocomplete="new-phone_number">
+                        
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
