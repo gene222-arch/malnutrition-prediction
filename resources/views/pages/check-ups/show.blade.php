@@ -35,10 +35,36 @@
                 </button>
             </p>
             <div class="collapse mb-3" id="symptoms">
-                <div class="card card-body bg-light">
-                    @foreach ($checkUp->details as $detail)
-                        <p class=""><strong><i class="fas fa-circle-notch mr-1"></i></strong> {{ $detail->symptom->name }}</p>
-                    @endforeach
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-body bg-light">
+                            @foreach ($checkUp->details as $detail)
+                                <p class="btn btn-light text-dark" data-toggle="modal" data-target="#symptom{{ $detail->symptom->id }}"><strong><i class="fas fa-circle-notch mr-1"></i></strong> {{ $detail->symptom->name }}</p>
+
+                                <div class="modal fade" id="symptom{{ $detail->symptom->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">{{ $detail->symptom->name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{ $detail->symptom->recommendation }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="container"></div>
+                    </div>
                 </div>
             </div>
             {{-- BMI Result --}}
@@ -70,4 +96,56 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('js')
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    const symptoms = '<?= $checkUp->details->count() ?>';
+
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Symptom Chart'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Symptoms',
+                y: parseFloat((100).toFixed(2)),
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Patient Symptoms',
+                y: parseFloat(((symptoms / 12) * 100).toFixed(2))
+            }]
+        }]
+    });
+</script>
 @endsection

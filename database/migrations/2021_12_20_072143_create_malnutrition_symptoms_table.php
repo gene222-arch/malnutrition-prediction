@@ -17,6 +17,7 @@ class CreateMalnutritionSymptomsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('name');
+            $table->text('recommendation');
         });
     }
 

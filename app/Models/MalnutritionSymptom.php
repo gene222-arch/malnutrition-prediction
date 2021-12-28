@@ -11,6 +11,7 @@ class MalnutritionSymptom extends Model
 
     protected $fillable = [
         'type',
-        'name'
+        'name',
+        'recommendation'
     ];
 }
