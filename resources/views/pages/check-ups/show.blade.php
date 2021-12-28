@@ -73,7 +73,7 @@
                     <i class="fas fa-poll"></i> BMI Result
                 </button>
             </p>
-            <div class="collapse" id="bmiResult">
+            <div class="collapse mb-3" id="bmiResult">
                 <div 
                     @class([
                         'card' => true,
