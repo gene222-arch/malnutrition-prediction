@@ -91,6 +91,7 @@ class CheckUpsController extends Controller
             'weight_in_pounds' => $weightInPounds
         ]);
 
+        $checkUp->progress()->create([ 'symptom_count' => $malnutritionSymptomIds->count() ]);
         $checkUp->details()->createMany($malnutritionSymptomIds);
 
         $checkUp
@@ -164,6 +165,7 @@ class CheckUpsController extends Controller
             'height_in_inches' => $heightInInches,
             'weight_in_pounds' => $weightInPounds
         ]);
+        $checkUp->progress()->create([ 'symptom_count' => $malnutritionSymptomIds->count() ]);
         $checkUp->details()->delete();
         $checkUp->details()->createMany($malnutritionSymptomIds);
         $checkUp->result()->update([

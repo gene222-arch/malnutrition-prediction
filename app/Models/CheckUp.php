@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 class CheckUp extends Model
@@ -37,12 +39,17 @@ class CheckUp extends Model
         });
     }
 
-    public function details()
+    public function details(): HasMany
     {
         return $this->hasMany(CheckUpDetail::class);
     }
 
-    public function result()
+    public function progress(): HasOne
+    {
+        return $this->hasOne(CheckUpProgress::class);
+    }
+
+    public function result(): HasOne
     {
         return $this->hasOne(CheckUpResult::class);
     }
