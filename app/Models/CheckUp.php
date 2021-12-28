@@ -44,9 +44,9 @@ class CheckUp extends Model
         return $this->hasMany(CheckUpDetail::class);
     }
 
-    public function progress(): HasOne
+    public function progress(): HasMany
     {
-        return $this->hasOne(CheckUpProgress::class);
+        return $this->hasMany(CheckUpProgress::class);
     }
 
     public function result(): HasOne

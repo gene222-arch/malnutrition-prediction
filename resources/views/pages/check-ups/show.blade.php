@@ -94,6 +94,14 @@
                     </p>
                 </div>
             </div>
+            <p>
+                <button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#progress" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fas fa-poll"></i> Progress
+                </button>
+            </p>
+            <div class="collapse" id="progress">
+                <div id="progress-chart"></div>
+            </div>
         </div>
     </div>
 @endsection
@@ -104,6 +112,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
     const symptoms = '<?= $checkUp->details->count() ?>';
+    let progress = '<?= $progress ?>'.replace('[', '').replace(']', '').split(',').map(prog => parseInt(prog));
 
     Highcharts.chart('container', {
         chart: {
@@ -147,5 +156,59 @@
             }]
         }]
     });
+
+    Highcharts.chart('progress-chart', {
+        title: {
+            text: 'Patient`s Symptoms Progress'
+        },
+
+        yAxis: {
+            title: {
+                text: 'Symptoms'
+            }
+        },
+
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 2010 to 2017'
+            }
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: true
+                },
+                pointStart: 1
+            }
+        },
+
+        series: [{
+            name: 'Symptoms',
+            data: [...progress, 0, 0, 0, 0, 0, 0]
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    // maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+        });
 </script>
 @endsection

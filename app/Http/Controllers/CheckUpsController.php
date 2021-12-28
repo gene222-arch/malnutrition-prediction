@@ -115,9 +115,11 @@ class CheckUpsController extends Controller
     public function show(CheckUp $checkUp)
     {
         $checkUp = CheckUp::with(['details.symptom', 'result'])->find($checkUp->id);
+        $progress = $checkUp->progress->map->symptom_count;
         
         return view('pages.check-ups.show', [
-            'checkUp' => $checkUp
+            'checkUp' => $checkUp,
+            'progress' => $progress
         ]);
     }
 
