@@ -8,6 +8,9 @@
         <div class="card-body">
             {{-- Patient Information --}}
             <p>
+                <span><strong>Date of Visit</strong></span> : {{ \Carbon\Carbon::parse($checkUp->visited_at)->format('M d, Y') }}
+            </p>
+            <p>
                 <button class="btn btn-outline-primary btn-block" type="button" data-toggle="collapse" data-target="#patientInfo" aria-expanded="false" aria-controls="collapseExample">
                     <i class="fas fa-hospital-user"></i> Patient Information
                 </button>
@@ -190,8 +193,8 @@
         },
 
         series: [{
-            name: 'Symptoms',
-            data: [...progress, 0, 0, 0, 0, 0, 0]
+            name: 'Check up count',
+            data: progress
         }],
 
         responsive: {
