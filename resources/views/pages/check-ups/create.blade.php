@@ -129,7 +129,7 @@
                                         class="form-control @error('reserved_at') is-invalid @enderror border border-primary" 
                                         name="reserved_at"  
                                         class="date-input"
-                                        value="{{ old('reserved_at') }}"
+                                        value="{{ \Carbon\Carbon::parse(old('reserved_at'))->format('Y-m-d') }}"
                                     >
                                     @error('reserved_at')
                                         <div class="invalid-feedback">
