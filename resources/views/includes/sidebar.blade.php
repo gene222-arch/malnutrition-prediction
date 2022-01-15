@@ -29,6 +29,11 @@
 			<li class="{{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'active' : '' }}">
 				<a href="/check-ups"><i class="fas fa-hospital-user mr-3 {{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'text-info' : '' }}"></i>Check ups</a>
 			</li>
+			@hasrole('Administrator')
+				<li class="{{ request()->is('food-recommendation') || request()->is('food-recommendation/*') ? 'active' : '' }}">
+					<a href="/food-recommendation"><i class="fas fa-utensils mr-3 {{ request()->is('food-recommendation') || request()->is('food-recommendation/*') ? 'text-info' : '' }}"></i> Food Recommendation</a>
+				</li>
+			@endhasrole
 			<li>
 				<a href="#" class="nav-link" onclick="document.getElementById('logout__form').submit()">
 					<p><i class="fas fa-sign-out-alt mr-3 text-light"></i>Logout</p>

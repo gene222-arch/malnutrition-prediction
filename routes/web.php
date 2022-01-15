@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrgyNutritionScholarsController;
 use App\Http\Controllers\CheckUpsController;
+use App\Http\Controllers\FoodRecommendationsController;
 use App\Http\Controllers\ParentsController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,5 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::resource('brgy-nutrition-scholars', BrgyNutritionScholarsController::class);
 
+    Route::resource('food-recommendation', FoodRecommendationsController::class);
 });
