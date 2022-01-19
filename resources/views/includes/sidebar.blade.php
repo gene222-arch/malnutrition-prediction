@@ -13,9 +13,11 @@
 			</div>
 		</div>
       <ul class="list-unstyled components mb-5">
-			<li class="{{ request()->is('/') ? 'active' : '' }}">
-				<a href="/"><span class="fa fa-home mr-3 {{ request()->is('/') ? 'text-info' : '' }}"></span> Dashboard</a>
-			</li>
+			@hasrole('Administrator|Barangay Nutrition Scholar')
+				<li class="{{ request()->is('/') ? 'active' : '' }}">
+					<a href="/"><span class="fa fa-home mr-3 {{ request()->is('/') ? 'text-info' : '' }}"></span> Dashboard</a>
+				</li>
+			@endhasrole
 			@hasrole('Administrator|Barangay Nutrition Scholar')
 				<li class="{{ request()->is('parents') ? 'active' : '' }}">
 					<a href="/parents"><i class="fas fa-user mr-3 {{ request()->is('parents') ? 'text-info' : '' }}"></i> Parents</a>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -59,11 +60,7 @@ class HomeController extends Controller
 
         if ($user->hasRole('Parent')) 
         {
-            $checkUpsCount = CheckUp::where('parent_id', $user->id)->count();
-
-            return view('pages.parents.dashboard', [
-                'checkUpsCount' => $checkUpsCount
-            ]);
+            return Redirect::back();
         }
     }
 }
