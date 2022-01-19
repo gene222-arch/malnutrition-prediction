@@ -12,6 +12,7 @@ use App\Http\Requests\CheckUp\StoreRequest;
 use App\Http\Requests\CheckUp\UpdateRequest;
 use App\Models\User;
 use App\Services\BMIComputerServices;
+use App\Services\CheckUpService;
 use Illuminate\Support\Facades\Auth;
 
 class CheckUpsController extends Controller
@@ -76,7 +77,7 @@ class CheckUpsController extends Controller
      * @param  \App\Http\Requests\CheckUp\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, CheckUpService $service)
     {
         $malnutritionSymptomIds = $request
             ->collect('malnutrition_symptom_ids')
@@ -93,12 +94,13 @@ class CheckUpsController extends Controller
 
         $checkUp->progress()->create([ 'symptom_count' => $malnutritionSymptomIds->count() ]);
         $checkUp->details()->createMany($malnutritionSymptomIds);
-
+            
         $checkUp
             ->result()
             ->create([
                 'bmi' => $bmi,
-                'result' => BMIComputerServices::interpret($bmi)
+                'result' => BMIComputerServices::interpret($bmi),
+                'is_malnourished' => $service->isMalnourished($request->malnutrition_symptom_ids)
             ]);
 
         return Redirect::route('check-ups.index')->with([
@@ -153,7 +155,7 @@ class CheckUpsController extends Controller
      * @param  \App\Models\CheckUp  $checkUp
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, CheckUp  $checkUp)
+    public function update(UpdateRequest $request, CheckUp  $checkUp, CheckUpService $service)
     {
         $malnutritionSymptomIds = $request
             ->collect('malnutrition_symptom_ids')
@@ -172,7 +174,8 @@ class CheckUpsController extends Controller
         $checkUp->details()->createMany($malnutritionSymptomIds);
         $checkUp->result()->update([
             'bmi' => $bmi,
-            'result' => BMIComputerServices::interpret($bmi)
+            'result' => BMIComputerServices::interpret($bmi),
+            'is_malnourished' => $service->isMalnourished($request->malnutrition_symptom_ids)
         ]);
 
         return Redirect::route('check-ups.index')->with([

@@ -24,6 +24,7 @@
                     <th scope="col">Age</th>
                     <th scope="col">Date of Reservation</th>
                     <th scope="col">Date of Visit</th>
+                    <th scope="col">Status</th>
                     @hasanyrole('Administrator|Barangay Nutrition Scholar')
                         <th scope="col">Action</th>
                     @endhasanyrole
@@ -49,6 +50,17 @@
                         <td>{{ $checkUp->age }}</td>
                         <td>{{ $checkUp->reserved_at }}</td>
                         <td>{{ $checkUp->visited_at }}</td>
+                        <td>
+                            <span 
+                                @class([
+                                    "badge",
+                                    "badge-success" => !$checkUp->result->is_malnourished,
+                                    "badge-danger" => $checkUp->result->is_malnourished
+                                ])
+                            >
+                                {{ $checkUp->result->is_malnourished ? "Malnourished" : "Healthy" }}
+                            </span>
+                        </td>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')
                             <td>
                                 <form action="{{ route('check-ups.destroy', $checkUp->id) }}" method="POST">

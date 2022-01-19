@@ -4,6 +4,15 @@
     <div class="card">
         <div class="card-header">
             <strong>{{ Auth::user()->name }}</strong>
+            <span 
+                @class([
+                    "badge",
+                    "badge-success" => !$checkUp->result->is_malnourished,
+                    "badge-danger" => $checkUp->result->is_malnourished
+                ])
+            >
+                {{ $checkUp->result->is_malnourished ? "Malnourished" : "Healthy" }}
+            </span>
         </div>
         <div class="card-body">
             {{-- Patient Information --}}
