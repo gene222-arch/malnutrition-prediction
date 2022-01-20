@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\BNS;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +25,11 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = User::firstWhere('email', $this->input('email'))->id;
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
