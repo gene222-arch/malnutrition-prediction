@@ -57,7 +57,7 @@
                 <div class="col-12 mb-3">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">%</span>
-                        <input type="text" class="form-control bg-light input-percentage" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control bg-secondary text-white input-percentage" aria-describedby="basic-addon1">
                     </div>
                 </div>
             </div>

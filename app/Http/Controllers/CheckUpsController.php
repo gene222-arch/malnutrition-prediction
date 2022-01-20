@@ -79,29 +79,36 @@ class CheckUpsController extends Controller
      */
     public function store(StoreRequest $request, CheckUpService $service)
     {
-        $malnutritionSymptomIds = $request
-            ->collect('malnutrition_symptom_ids')
-            ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
-        $heightInInches = ($request->height_in_cm * 0.393701);
-        $weightInPounds = ($request->weight_in_kg * 2.20462);
-        $bmi = BMIComputerServices::compute($weightInPounds, $heightInInches);
-
-        $checkUp = CheckUp::create($request->validated() + [
-            'reserved_at' => Carbon::parse($request->reserved_at),
-            'height_in_inches' => $heightInInches,
-            'weight_in_pounds' => $weightInPounds
-        ]);
-
-        $checkUp->progress()->create([ 'symptom_count' => $malnutritionSymptomIds->count() ]);
-        $checkUp->details()->createMany($malnutritionSymptomIds);
-            
-        $checkUp
-            ->result()
-            ->create([
-                'bmi' => $bmi,
-                'result' => BMIComputerServices::interpret($bmi),
-                'is_malnourished' => $service->isMalnourished($request->malnutrition_symptom_ids)
-            ]);
+        try {
+                DB::transaction(function () use ($request, $service) {
+                    $malnutritionSymptomIds = $request
+                    ->collect('malnutrition_symptom_ids')
+                    ->map(fn ($id) => [ 'malnutrition_symptom_id' => $id ]);
+                    
+                $heightInInches = ($request->height_in_cm * 0.393701);
+                $weightInPounds = ($request->weight_in_kg * 2.20462);
+                $bmi = BMIComputerServices::compute($weightInPounds, $heightInInches);
+        
+                $checkUp = CheckUp::create($request->validated() + [
+                    'reserved_at' => Carbon::parse($request->reserved_at),
+                    'height_in_inches' => $heightInInches,
+                    'weight_in_pounds' => $weightInPounds
+                ]);
+        
+                $checkUp->progress()->create([ 'symptom_count' => $malnutritionSymptomIds->count() ]);
+                $checkUp->details()->createMany($malnutritionSymptomIds);
+                    
+                $checkUp
+                    ->result()
+                    ->create([
+                        'bmi' => $bmi,
+                        'result' => BMIComputerServices::interpret($bmi),
+                        'is_malnourished' => $service->isMalnourished($request->malnutrition_symptom_ids)
+                    ]);
+            });
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
 
         return Redirect::route('check-ups.index')->with([
             'successMessageOnSuccess' => 'Check up created successfully'
