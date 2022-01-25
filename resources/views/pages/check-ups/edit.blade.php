@@ -63,7 +63,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Age</span>
+                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Age (0 - 5)</span>
                                     </div>
                                     <input 
                                         name="age"

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\CheckUp;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\MalnutritionSymptom;
 use Illuminate\Support\Facades\Redirect;
