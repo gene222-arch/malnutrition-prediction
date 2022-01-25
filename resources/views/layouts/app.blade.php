@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-xl navbar-dark shadow-sm app-layout-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <strong>Pais Iatros</strong>
+                    <strong>H<small class="text-warning">ealth</small> F<small class="text-warning">oretell</small></strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

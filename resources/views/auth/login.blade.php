@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-start">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">{{ __('Login') }}</div>
@@ -56,6 +60,13 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+        <div class="col-12 mt-5 message">
+            <div class="jumbotron">
+                <p class="display-6">We <strong class="text-secondary">care</strong></p>
+                <p class="display-6">We <strong class="text-secondary">foretell</strong></p>
+                <p class="display-6">All <strong class="text-secondary">for you.</strong></p>
             </div>
         </div>
     </div>
