@@ -20,7 +20,6 @@
         <table class="table table-bordered mb-5">
             <thead>
                 <tr class="table-info">
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Action</th>
@@ -29,7 +28,6 @@
             <tbody>
                 @foreach($brgyNutritionSchs as $brgyNutritionSch)
                 <tr>
-                    <th scope="row">{{ $brgyNutritionSch->id }}</th>
                     <td>
                         <a href="{{ route('brgy-nutrition-scholars.edit', $brgyNutritionSch->id) }}">{{ $brgyNutritionSch->name }}</a>
                     </td>

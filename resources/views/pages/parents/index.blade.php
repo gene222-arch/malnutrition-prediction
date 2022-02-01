@@ -5,7 +5,6 @@
         <table class="table table-bordered mb-5">
             <thead>
                 <tr class="table-info">
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                 </tr>
@@ -13,7 +12,6 @@
             <tbody>
                 @foreach($parents as $parent)
                 <tr>
-                    <th scope="row">{{ $parent->id }}</th>
                     <td>{{ $parent->name }}</td>
                     <td>{{ $parent->email }}</td>
                 </tr>
