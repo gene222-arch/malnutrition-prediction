@@ -197,12 +197,21 @@ class CheckUpsController extends Controller
      */
     public function destroy(CheckUp $checkUp)
     {
-        $checkUp->details()->delete();
-        $checkUp->result()?->delete();
         $checkUp->delete();
 
         return redirect()->back()->with([
             'successMessage' => 'Patient data deleted successfully'
+        ]);
+    }
+
+    public function restore(int $id)
+    {
+        CheckUp::withTrashed()
+            ->find($id)
+            ->restore();
+
+        return redirect()->back()->with([
+            'successMessage' => 'Patient data restored successfully'
         ]);
     }
 }

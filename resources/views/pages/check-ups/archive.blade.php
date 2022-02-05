@@ -10,13 +10,11 @@
                 </button>
             </div>
         @endif
-        @hasanyrole('Administrator|Barangay Nutrition Scholar')
-            <div class="card mb-2 rounded">
-                <a href="{{ route('check-ups.create') }}" data-toggle="tooltip" data-placement="top" title="Add new patient">
-                    <i class="fas fa-plus fa-3x p-4 text-success"></i>
-                </a>
+        <div class="card p-4">
+            <div class="card-content">
+                <h5>Archived Patients</h5>
             </div>
-        @endhasanyrole
+        </div>
         <table class="table table-striped mb-5 rounded">
             <thead>
                 <tr class="table-info">
@@ -31,59 +29,57 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($checkUps as $checkUp)
+                @foreach($archivedCheckUps as $archive)
                     <tr>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')
                             <td>
-                                <a href="{{ route('check-ups.edit', $checkUp->id) }}" data-toggle="tooltip" data-placement="top" title="View patient details">
-                                    {{ $checkUp->patient_name }}
-                                </a>
+                                {{ $archive->patient_name }}
                             </td>
                         @endhasanyrole
                         @hasrole('Parent')
                             <td>
-                                <a href="{{ route('check-ups.show', $checkUp->id) }}">
-                                    {{ $checkUp->patient_name }}
+                                <a href="{{ route('check-ups.show', $archive->id) }}">
+                                    {{ $archive->patient_name }}
                                 </a>
                             </td>
                         @endhasrole
-                        <td>{{ $checkUp->age }}</td>
-                        <td>{{ $checkUp->reserved_at }}</td>
-                        <td>{{ $checkUp->visited_at }}</td>
+                        <td>{{ $archive->age }}</td>
+                        <td>{{ $archive->reserved_at }}</td>
+                        <td>{{ $archive->visited_at }}</td>
                         <td>
                             <span 
                                 @class([
                                     "badge",
-                                    "badge-success" => !$checkUp->result->is_malnourished,
-                                    "badge-danger" => $checkUp->result->is_malnourished
+                                    "badge-success" => !$archive->result->is_malnourished,
+                                    "badge-danger" => $archive->result->is_malnourished
                                 ])
                             >
-                                {{ $checkUp->result->is_malnourished ? "Malnourished" : "Healthy" }}
+                                {{ $archive->result->is_malnourished ? "Malnourished" : "Healthy" }}
                             </span>
                         </td>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')
                             <td>
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal{{ $checkUp->id }}">
-                                    <i class="fas fa-archive"></i>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal{{ $archive->id }}">
+                                    <i class="fas fa-trash-restore"></i>
                                 </button>
-                                <div class="modal fade" id="exampleModal{{ $checkUp->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="exampleModal{{ $archive->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Name: <strong class="text-secondary">{{ $checkUp->patient_name }}</strong></h5>
+                                                <h5 class="modal-title">Name: <strong class="text-secondary">{{ $archive->patient_name }}</strong></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Are you sure to archive the patient`s data?</p>
+                                                <p>Are you sure to restore the patient`s data?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="{{ route('check-ups.destroy', $checkUp->id) }}" method="POST">
+                                                <form action="{{ route('check.ups.restore', $archive->id) }}" method="POST">
                                                     @csrf
-                                                    @method("DELETE")
-                                                    <button type="submit" class="btn btn-outline-danger">
-                                                        Archive
+                                                    @method("POST")
+                                                    <button type="submit" class="btn btn-outline-success">
+                                                        Restore
                                                     </button>
                                                 </form>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -98,7 +94,7 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center">
-            {!! $checkUps->links() !!}
+            {!! $archivedCheckUps->links() !!}
         </div>
     </div>
 @endsection

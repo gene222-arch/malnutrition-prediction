@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivesController;
 use App\Http\Controllers\BrgyNutritionScholarsController;
 use App\Http\Controllers\CheckUpsController;
 use App\Http\Controllers\FoodRecommendationsController;
@@ -22,6 +23,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::group(['middleware' => 'auth'], function () 
 {
+    Route::post('/check-ups/restore/{id}', [CheckUpsController::class, 'restore'])->name('check.ups.restore');
     Route::resource('check-ups', CheckUpsController::class);
 
     Route::resource('parents', ParentsController::class);
@@ -29,4 +31,6 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('brgy-nutrition-scholars', BrgyNutritionScholarsController::class);
 
     Route::resource('food-recommendation', FoodRecommendationsController::class);
+
+    Route::get('/archives', ArchivesController::class);
 });
