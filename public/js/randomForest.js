@@ -28,9 +28,8 @@ const handleSubmitBtn = () =>
         }
     ];
 
-    console.table(selectedCategory)
-
-    const callback = async (err, trees) => {
+    const callback = async (err, trees) => 
+    {
         const recommendation = RandomForestClassifier.predict(rawData, trees)[0];
 
         const food = selectedCategory.find(({ name }) => name === recommendation);

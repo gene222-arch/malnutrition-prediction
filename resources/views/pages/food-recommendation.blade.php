@@ -45,25 +45,27 @@
 
     @isset ($selectedCategory)
         @isset($nutrients)
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <select class="form-select" aria-label="Default select example" id="select-nutrient" required>
-                        <option selected>Select Nutrient</option>
-                        @foreach ($nutrients as $nutrient)
-                            <option value="{{ Str::of($nutrient)->lower()->snake() }}">{{ $nutrient }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-12 mb-3">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">%</span>
-                        <input type="text" class="form-control bg-secondary text-white input-percentage" aria-describedby="basic-addon1" required>
+            <form>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <select class="form-select" aria-label="Default select example" id="select-nutrient" required>
+                            <option selected>Select Nutrient</option>
+                            @foreach ($nutrients as $nutrient)
+                                <option value="{{ Str::of($nutrient)->lower()->snake() }}">{{ $nutrient }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">%</span>
+                            <input type="number" class="form-control bg-secondary text-white input-percentage" aria-describedby="basic-addon1" required max="100">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col text-right">
-                <button class="btn btn-success btn-submit">Submit</button>
-            </div>
+                <div class="col text-right">
+                    <button class="btn btn-success btn-submit">Submit</button>
+                </div>
+            </form>
             <div class="col-12 col-sm-6 col-md-4 col-lg-4 recommendation">
             </div>
         @endisset
