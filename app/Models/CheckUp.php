@@ -22,7 +22,6 @@ class CheckUp extends Model
         'height_in_inches',
         'weight_in_kg',
         'weight_in_pounds',
-        'reserved_at',
         'visited_at',
         'ended_at'
     ];

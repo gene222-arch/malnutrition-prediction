@@ -23,7 +23,6 @@ class CreateCheckUpsTable extends Migration
             $table->unsignedDecimal('height_in_inches')->default(0);
             $table->unsignedDecimal('weight_in_kg')->default(0);
             $table->unsignedDecimal('weight_in_pounds')->default(0);
-            $table->timestamp('reserved_at')->nullable();
             $table->timestamp('visited_at')->nullable();
             $table->timestamp('ended_at')->nullable();
             $table->timestamps();

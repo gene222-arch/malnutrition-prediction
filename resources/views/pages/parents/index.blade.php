@@ -7,6 +7,7 @@
                 <tr class="table-info">
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Address</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +15,7 @@
                 <tr>
                     <td>{{ $parent->name }}</td>
                     <td>{{ $parent->email }}</td>
+                    <td>{{ $parent?->details?->address }}</td>
                 </tr>
                 @endforeach
             </tbody>

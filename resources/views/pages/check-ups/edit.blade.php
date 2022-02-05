@@ -118,26 +118,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Reservation Date</span>
-                                    </div>
-                                    <input 
-                                        name="reserved_at"
-                                        type="date" 
-                                        class="form-control @error('reserved_at') is-invalid @enderror border border-primary" 
-                                        name="reserved_at"  
-                                        class="date-input"
-                                        value="{{ \Carbon\Carbon::parse($checkUp->reserved_at)->format('Y-m-d') }}"
-                                    >
-                                    @error('reserved_at')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
                     </div>
                 </div>
             </div>

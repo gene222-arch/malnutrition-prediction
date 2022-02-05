@@ -29,7 +29,6 @@ class StoreRequest extends FormRequest
             'age' => ['required', 'numeric', 'min:0', 'max:5'],
             'height_in_cm' => ['required', 'numeric'],
             'weight_in_kg' => ['required', 'numeric'],
-            'reserved_at' => ['required', 'date'],
             'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id']
         ];
     }
