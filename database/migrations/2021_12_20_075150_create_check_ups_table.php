@@ -18,7 +18,6 @@ class CreateCheckUpsTable extends Migration
             $table->id();
             $table->foreignId('parent_id');
             $table->string('patient_name');
-            $table->unsignedInteger('age')->default(0);
             $table->unsignedDecimal('height_in_cm')->default(0);
             $table->unsignedDecimal('height_in_inches')->default(0);
             $table->unsignedDecimal('weight_in_kg')->default(0);

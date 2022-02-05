@@ -26,9 +26,9 @@ class StoreRequest extends FormRequest
         return [
             'parent_id' => ['required', 'integer', 'exists:users,id'],
             'patient_name' => ['required', 'string'],
-            'age' => ['required', 'numeric', 'min:0', 'max:5'],
             'height_in_cm' => ['required', 'numeric'],
             'weight_in_kg' => ['required', 'numeric'],
+            'birthed_at' => ['required', 'date'],
             'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id']
         ];
     }

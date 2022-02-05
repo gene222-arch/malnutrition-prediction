@@ -63,25 +63,6 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Age (0 - 5)</span>
-                                    </div>
-                                    <input 
-                                        name="age"
-                                        type="text" 
-                                        class="form-control @error('age') is-invalid @enderror border border-primary" 
-                                        aria-describedby="basic-addon1"
-                                        value="{{ $checkUp->age }}"
-                                    >
-                                    @error('age')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
                                       <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Height (cm)</span>
                                     </div>
                                     <input 
@@ -116,6 +97,26 @@
                                                 </div>
                                             @enderror
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Birthday</span>
+                                    </div>
+                                    <input 
+                                        name="birthed_at"
+                                        type="date" 
+                                        class="form-control @error('birthed_at') is-invalid @enderror border border-primary" 
+                                        name="birthed_at"  
+                                        class="date-input"
+                                        value="{{ \Carbon\Carbon::parse($checkUp->birthed_at)->format('Y-m-d') }}"
+                                    >
+                                    @error('birthed_at')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                     </div>

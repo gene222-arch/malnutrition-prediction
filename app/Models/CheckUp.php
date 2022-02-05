@@ -17,11 +17,11 @@ class CheckUp extends Model
     protected $fillable = [
         'parent_id',
         'patient_name',
-        'age',
         'height_in_cm',
         'height_in_inches',
         'weight_in_kg',
         'weight_in_pounds',
+        'birthed_at',
         'visited_at',
         'ended_at'
     ];
@@ -37,6 +37,11 @@ class CheckUp extends Model
         self::updating(function ($checkUp) {
             $checkUp->visited_at = Carbon::now();
         });
+    }
+
+    public function age()
+    {
+        return Carbon::parse($this->birthed_at)->age;
     }
 
     public function details(): HasMany

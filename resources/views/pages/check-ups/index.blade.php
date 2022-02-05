@@ -22,7 +22,7 @@
                 <tr class="table-info">
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
-                    <th scope="col">Date of Reservation</th>
+                    <th scope="col">Birthday</th>
                     <th scope="col">Date of Visit</th>
                     <th scope="col">Status</th>
                     @hasanyrole('Administrator|Barangay Nutrition Scholar')
@@ -47,8 +47,8 @@
                                 </a>
                             </td>
                         @endhasrole
-                        <td>{{ $checkUp->age }}</td>
-                        <td>{{ $checkUp->reserved_at }}</td>
+                        <td>{{ $checkUp->age() }}</td>
+                        <td>{{ $checkUp->birthed_at }}</td>
                         <td>{{ $checkUp->visited_at }}</td>
                         <td>
                             <span 
