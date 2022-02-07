@@ -20,6 +20,9 @@
                 <span><strong>Date of Visit</strong></span> : {{ \Carbon\Carbon::parse($checkUp->visited_at)->format('M d, Y') }}
             </p>
             <p>
+                <span><strong>Reason for visit</strong></span> : {{ $checkUp->reason_for_visit }}
+            </p>
+            <p>
                 <button class="btn btn-outline-primary btn-block" type="button" data-toggle="collapse" data-target="#patientInfo" aria-expanded="false" aria-controls="collapseExample">
                     <i class="fas fa-hospital-user"></i> Patient Information
                 </button>
@@ -113,6 +116,37 @@
             </p>
             <div class="collapse" id="progress">
                 <div id="progress-chart"></div>
+            </div>
+            <p>
+                <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#foodrecommendation" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fas fa-hamburger"></i> Food Recommended
+                </button>
+            </p>
+            <div class="collapse" id="foodrecommendation">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($foodRecommendations as $food)
+                            <tr>
+                                <td>
+                                    <img src="{{ $food->image_url }}" class="img-responsive rounded" width="150" height="100" alt="">
+                                </td>
+                                <td>{{ $food->type }}</td>
+                                <td>{{ $food->name }}</td>
+                                <td>{{ $food->description }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

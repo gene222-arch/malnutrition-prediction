@@ -33,12 +33,12 @@
 			</li>
 			@hasrole('Administrator')
 				<li class="{{ request()->is('archives') || request()->is('archives') ? 'active' : '' }}">
-					<a href="/archives"><i class="fas fa-user mr-3 {{ request()->is('archives') || request()->is('archives/*') ? 'text-info' : '' }}"></i> Archives</a>
+					<a href="/archives"><i class="fas fa-archive mr-3 {{ request()->is('archives') || request()->is('archives/*') ? 'text-info' : '' }}"></i> Archives</a>
 				</li>
 			@endhasrole
 			@hasrole('Administrator|Barangay Nutrition Scholar')
 				<li class="{{ request()->is('food-recommendation') || request()->is('food-recommendation/*') ? 'active' : '' }}">
-					<a href="/food-recommendation"><i class="fas fa-utensils mr-3 {{ request()->is('food-recommendation') || request()->is('food-recommendation/*') ? 'text-info' : '' }}"></i> Food Recommendation</a>
+					<a href="/food-recommendation"><i class="fas fa-utensils mr-3 {{ request()->is('food-recommendation') || request()->is('food-recommendation/*') ? 'text-info' : '' }}"></i> Food Nutrient Recommendation</a>
 				</li>
 			@endhasrole
 			<li>

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\FoodRecommendation;
 use Illuminate\Http\Request;
 
 class FoodRecommendationService
@@ -47,5 +48,12 @@ class FoodRecommendationService
         }
 
         return view('pages.food-recommendation');
+    }
+
+    public function viaAge(int $age)
+    {
+        return FoodRecommendation::where('min_age_recommended', '<=', $age)
+            ->where('max_age_recommended', '>=', $age)
+            ->get();
     }
 }

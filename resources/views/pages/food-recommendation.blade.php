@@ -45,7 +45,7 @@
 
     @isset ($selectedCategory)
         @isset($nutrients)
-            <form>
+            <form onsubmit="return false;">
                 <div class="row">
                     <div class="col-12 mb-3">
                         <select class="form-select" aria-label="Default select example" id="select-nutrient" required>

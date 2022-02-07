@@ -12,6 +12,7 @@ use App\Http\Requests\CheckUp\UpdateRequest;
 use App\Models\User;
 use App\Services\BMIComputerServices;
 use App\Services\CheckUpService;
+use App\Services\FoodRecommendationService;
 use Illuminate\Support\Facades\Auth;
 
 class CheckUpsController extends Controller
@@ -110,7 +111,7 @@ class CheckUpsController extends Controller
         }
 
         return Redirect::route('check-ups.index')->with([
-            'successMessageOnSuccess' => 'Check up created successfully'
+            'successMessage' => 'Check up created successfully'
         ]);
     }
 
@@ -118,16 +119,19 @@ class CheckUpsController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\CheckUp  $checkUp
+     * @param  \App\Services\FoodRecommendationService  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(CheckUp $checkUp)
+    public function show(CheckUp $checkUp, FoodRecommendationService $service)
     {
         $checkUp = CheckUp::with(['details.symptom', 'result'])->find($checkUp->id);
         $progress = $checkUp->progress->map->symptom_count;
+        $foodRecommendations = $service->viaAge($checkUp->age);
         
         return view('pages.check-ups.show', [
             'checkUp' => $checkUp,
-            'progress' => $progress
+            'progress' => $progress,
+            'foodRecommendations' => $foodRecommendations
         ]);
     }
 
