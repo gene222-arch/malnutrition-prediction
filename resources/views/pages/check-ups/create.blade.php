@@ -119,6 +119,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text text-white" id="basic-addon1" style="background-color: #5c6cc9">Reason for visit</span>
+                                    </div>
+                                    <textarea 
+                                    name="reason_for_visit"
+                                        class="form-control @error('birthed_at') is-invalid @enderror border border-primary"  
+                                        id="exampleFormControlTextarea1" 
+                                        rows="3"
+                                    >{{ old('reason_for_visit') }}</textarea>
+                                    @error('birthed_at')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>

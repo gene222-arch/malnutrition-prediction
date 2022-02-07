@@ -29,7 +29,7 @@
 				</li>
 			@endhasrole
 			<li class="{{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'active' : '' }}">
-				<a href="/check-ups"><i class="fas fa-hospital-user mr-3 {{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'text-info' : '' }}"></i>Check ups</a>
+				<a href="/check-ups"><i class="fas fa-hospital-user mr-3 {{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'text-info' : '' }}"></i>Patients</a>
 			</li>
 			@hasrole('Administrator')
 				<li class="{{ request()->is('archives') || request()->is('archives') ? 'active' : '' }}">

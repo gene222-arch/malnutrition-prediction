@@ -29,7 +29,8 @@ class UpdateRequest extends FormRequest
             'height_in_cm' => ['required', 'numeric'],
             'weight_in_kg' => ['required', 'numeric'],
             'birthed_at' => ['required', 'date'],
-            'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id']
+            'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id'],
+            'reason_for_visit' => ['required', 'string']
         ];
     }
 
