@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class PatientRecordsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:Administrator|Barangay Nutrition Scholar')
+            ->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
