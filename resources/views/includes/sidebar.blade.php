@@ -23,6 +23,9 @@
 					<a href="/parents"><i class="fas fa-user mr-3 {{ request()->is('parents') ? 'text-info' : '' }}"></i> Parents</a>
 				</li>
 			@endhasrole
+			<li class="{{ request()->is('patient-records') ? 'active' : '' }}">
+				<a href="/patient-records"><i class="fas fa-user mr-3 {{ request()->is('patient-records') ? 'text-info' : '' }}"></i> Patient Records</a>
+			</li>
 			@hasrole('Administrator')
 				<li class="{{ request()->is('brgy-nutrition-scholars') || request()->is('brgy-nutrition-scholars/*') ? 'active' : '' }}">
 					<a href="/brgy-nutrition-scholars"><i class="fas fa-user mr-3 {{ request()->is('brgy-nutrition-scholars') || request()->is('brgy-nutrition-scholars/*') ? 'text-info' : '' }}"></i> BNS</a>

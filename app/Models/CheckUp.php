@@ -59,4 +59,9 @@ class CheckUp extends Model
     {
         return $this->hasOne(CheckUpResult::class);
     }
+
+    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
 }
