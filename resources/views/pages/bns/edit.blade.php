@@ -74,6 +74,7 @@
                                 </button>
                             </div>
                         </div>
+                        <input type="hidden" name="id" value="{{ $bns->id }}">
                     </form>
                 </div>
             </div>

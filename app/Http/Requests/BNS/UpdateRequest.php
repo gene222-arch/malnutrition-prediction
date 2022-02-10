@@ -25,11 +25,9 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $userId = User::firstWhere('email', $this->input('email'))->id;
-
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->input('id')],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
