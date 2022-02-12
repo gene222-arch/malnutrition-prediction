@@ -20,7 +20,7 @@
         <table class="table table-bordered mb-5">
             <thead>
                 <tr class="table-info">
-                    <th scope="col">Patient</th>
+                    <th scope="col">Parent</th>
                     <th scope="col">Latest Note</th>
                 </tr>
             </thead>

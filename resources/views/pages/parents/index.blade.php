@@ -7,7 +7,9 @@
                 <tr class="table-info">
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Available Person on Absence</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,7 +17,9 @@
                 <tr>
                     <td>{{ $parent->name }}</td>
                     <td>{{ $parent->email }}</td>
+                    <td>{{ $parent?->details?->phone_number }}</td>
                     <td>{{ $parent?->details?->address }}</td>
+                    <td>{{ $parent?->details?->available_person_on_absence }}</td>
                 </tr>
                 @endforeach
             </tbody>

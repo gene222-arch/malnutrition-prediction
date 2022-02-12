@@ -58,10 +58,10 @@
         let monthlyCheckups = JSON.parse('<?= $monthlyCheckups ?>');
         let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        const months = Object.keys(monthlyCheckups).map(month => Number(month) - 1);
-
-        data = data.map((datum, index) => months.includes(index) ? monthlyCheckups[index + 1] : datum);
-
+        const months = Object.keys(monthlyCheckups).map(month => {
+            data[month - 1] = monthlyCheckups[month];
+        });
+        
         Highcharts.chart('container', {
             title: {
                 text: 'Monthly Checkups'

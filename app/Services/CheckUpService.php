@@ -2,16 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\MalnutritionSymptom;
-
 class CheckUpService 
 {
     public function isMalnourished($symptomIds): bool
     {
-        $hasPhysicalSymptoms = MalnutritionSymptom::whereIn('id', $symptomIds)
-            ->where('type', 'Physical Appearance')
-            ->exists();
+        $ids = [2, 4, 8, 11];
+        $found = array_filter($symptomIds, fn ($v) => in_array($v, $ids));
 
-        return $hasPhysicalSymptoms;
+        return count($found) === 4;
     }
 }
