@@ -13,7 +13,8 @@ class CheckUpResult extends Model
         'check_up_id',
         'bmi',
         'result',
-        'is_malnourished'
+        'is_malnourished',
+        'malnourishment_level'
     ];
 
     public $timestamps = false;

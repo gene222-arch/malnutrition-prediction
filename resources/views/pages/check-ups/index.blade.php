@@ -54,11 +54,12 @@
                             <span 
                                 @class([
                                     "badge",
-                                    "badge-success" => !$checkUp->result->is_malnourished,
-                                    "badge-danger" => $checkUp->result->is_malnourished
+                                    'badge-warning' => $checkUp->result->malnourishment_level === 'Moderately Malnourished',
+                                    "badge-success" => $checkUp->result->malnourishment_level === 'Healthy',
+                                    "badge-danger" => $checkUp->result->malnourishment_level === 'Malnourished'
                                 ])
                             >
-                                {{ $checkUp->result->is_malnourished ? "Malnourished" : "Healthy" }}
+                                {{ $checkUp->result->malnourishment_level }}
                             </span>
                         </td>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')

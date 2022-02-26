@@ -114,7 +114,10 @@ class CheckUpsController extends Controller
                             'result' => BMIComputerServices::interpret($bmi),
                             'is_malnourished' => $request->has('malnutrition_symptom_ids') 
                                 ? $service->isMalnourished($request->malnutrition_symptom_ids) 
-                                : false
+                                : false,
+                            'malnourishment_level' => $request->has('malnutrition_symptom_ids') 
+                            ? $service->getMalnourishmentLevel($request->malnutrition_symptom_ids) 
+                            : false
                         ]);
             });
         } catch (\Throwable $th) {
@@ -204,6 +207,9 @@ class CheckUpsController extends Controller
             'result' => BMIComputerServices::interpret($bmi),
             'is_malnourished' => $request->has('malnutrition_symptom_ids') 
                 ? $service->isMalnourished($request->malnutrition_symptom_ids) 
+                : false,
+            'malnourishment_level' => $request->has('malnutrition_symptom_ids') 
+                ? $service->getMalnourishmentLevel($request->malnutrition_symptom_ids) 
                 : false
         ]);
 
