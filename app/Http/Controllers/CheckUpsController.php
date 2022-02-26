@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\CheckUp;
+use Illuminate\Support\Str;
+use App\Services\CheckUpService;
 use Illuminate\Support\Facades\DB;
 use App\Models\MalnutritionSymptom;
+use Illuminate\Support\Facades\Auth;
+use App\Services\BMIComputerServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CheckUp\StoreRequest;
-use App\Http\Requests\CheckUp\UpdateRequest;
-use App\Models\User;
-use App\Services\BMIComputerServices;
-use App\Services\CheckUpService;
 use App\Services\FoodRecommendationService;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CheckUp\UpdateRequest;
 
 class CheckUpsController extends Controller
 {
@@ -141,11 +142,13 @@ class CheckUpsController extends Controller
         $checkUp = CheckUp::with(['details.symptom', 'result'])->find($checkUp->id);
         $progress = $checkUp->progress->map->symptom_count;
         $foodRecommendations = $service->viaAge($checkUp->age);
+        $symptoms = $checkUp->details->map->symptom->map(fn($sym) => Str::of($sym->name)->lower()->snake());
         
         return view('pages.check-ups.show', [
             'checkUp' => $checkUp,
             'progress' => $progress,
-            'foodRecommendations' => $foodRecommendations
+            'foodRecommendations' => $foodRecommendations,
+            'symptoms' => $symptoms
         ]);
     }
 

@@ -3,7 +3,6 @@ import vegetables from "./../services/vegetables.js";
 import meat from "./../services/meat.js";  
 import fish from "./../services/fish.js";
 import queryParam from './../utils/queryParam.js';
-import malnutrition from "../services/malnutrition.js";
 
 const RandomForestClassifier = window.RandomForestClassifier;
 

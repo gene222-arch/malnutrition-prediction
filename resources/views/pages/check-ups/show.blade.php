@@ -257,4 +257,125 @@
 
         });
 </script>
+<script>
+    let symptomList = '<?= $symptoms ?>';
+    symptomList = symptomList
+        .replace('[', '')
+        .replace(']', '')
+        .replaceAll(`"`, '')
+        .split(',');
+
+    const mals = 
+    [
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 1,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 1,
+            label: 'Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 0,
+            poor_concentration: 1,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 1,
+            label: 'Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 0,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 1,
+            label: 'Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 1,
+            short_for_their_age: 0,
+            unintentional_weight_loss: 1,
+            label: 'Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 1,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 0,
+            label: 'Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 1,
+            short_for_their_age: 0,
+            unintentional_weight_loss: 0,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 0,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 0,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 1,
+            poor_concentration: 0,
+            short_for_their_age: 0,
+            unintentional_weight_loss: 1,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 0,
+            poor_concentration: 1,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 0,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 0,
+            poor_concentration: 1,
+            short_for_their_age: 0,
+            unintentional_weight_loss: 1,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 0,
+            poor_concentration: 0,
+            short_for_their_age: 1,
+            unintentional_weight_loss: 1,
+            label: 'Moderately Malnourished'
+        },
+        {
+            feeling_tired_all_the_time: 0,
+            poor_concentration: 0,
+            short_for_their_age: 0,
+            unintentional_weight_loss: 0,
+            label: 'Healthy'
+        }
+    ];
+
+
+    let symptoms_ = {
+        feeling_tired_all_the_time: 0,
+        poor_concentration: 0,
+        short_for_their_age: 0,
+        unintentional_weight_loss: 0
+    };
+    symptomList.map(s => {
+        symptoms_[s] = 1;
+    });
+
+    const user = [
+        symptoms_
+    ];
+
+    console.log(user)
+
+    const RandomForestClassifier = window.RandomForestClassifier;
+
+    RandomForestClassifier.fit(mals, null, "label", (err, trees) => 
+    {
+        const pred = RandomForestClassifier.predict(user, trees);
+        console.log(pred);
+    });
+</script>
 @endsection
