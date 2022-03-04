@@ -24,16 +24,29 @@
 				</li>
 			@endhasrole
 			<li class="{{ request()->is('patient-records') ? 'active' : '' }}">
-				<a href="/patient-records"><i class="fas fa-user mr-3 {{ request()->is('patient-records') ? 'text-info' : '' }}"></i> Patient Records</a>
+				<a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+					<i class="fas fa-user mr-3 {{ request()->is('patient-records') ? 'text-info' : '' }}"></i> 
+					Patient Information
+				</a>
 			</li>
+			<div class="collapse" id="collapseExample" style="background-color: transparent">
+				<div class="card card-body" style="background-color: transparent">
+					<li class="{{ request()->is('patient-records') ? 'active' : '' }}">
+						<a href="/patient-records" class="nav-link">
+							<i class="fas fa-user mr-3 {{ request()->is('patient-records') ? 'text-info' : '' }}"></i> 
+							Patient Records
+						</a>
+					</li>
+					<li class="{{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'active' : '' }}">
+						<a href="/check-ups"><i class="fas fa-hospital-user mr-3 {{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'text-info' : '' }}"></i>Patients</a>
+					</li>
+				</div>
+			</div>
 			@hasrole('Administrator')
 				<li class="{{ request()->is('brgy-nutrition-scholars') || request()->is('brgy-nutrition-scholars/*') ? 'active' : '' }}">
 					<a href="/brgy-nutrition-scholars"><i class="fas fa-user mr-3 {{ request()->is('brgy-nutrition-scholars') || request()->is('brgy-nutrition-scholars/*') ? 'text-info' : '' }}"></i> BNS</a>
 				</li>
 			@endhasrole
-			<li class="{{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'active' : '' }}">
-				<a href="/check-ups"><i class="fas fa-hospital-user mr-3 {{ request()->is('check-ups')  || request()->is('check-ups/*') ? 'text-info' : '' }}"></i>Patients</a>
-			</li>
 			@hasrole('Administrator')
 				<li class="{{ request()->is('archives') || request()->is('archives') ? 'active' : '' }}">
 					<a href="/archives"><i class="fas fa-archive mr-3 {{ request()->is('archives') || request()->is('archives/*') ? 'text-info' : '' }}"></i> Archives</a>
