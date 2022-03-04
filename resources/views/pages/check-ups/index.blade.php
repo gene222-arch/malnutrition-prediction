@@ -26,7 +26,7 @@
                     <th scope="col">Date of Visit</th>
                     <th scope="col">Status</th>
                     @hasanyrole('Administrator|Barangay Nutrition Scholar')
-                        <th scope="col">Action</th>
+                        <th scope="col" colspan="2">Action</th>
                     @endhasanyrole
                 </tr>
             </thead>
@@ -61,6 +61,11 @@
                             >
                                 {{ $checkUp->result->malnourishment_level }}
                             </span>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-info" href="{{ route('check-ups.show', $checkUp->id) }}">
+                                <i class="fas fa-eye text-info fa-1x"></i>
+                            </a>
                         </td>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')
                             <td>

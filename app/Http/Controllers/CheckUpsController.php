@@ -23,8 +23,7 @@ class CheckUpsController extends Controller
     {
         $this->middleware('role:Administrator|Barangay Nutrition Scholar')
             ->except([
-                'index',
-                'show'
+                'index'
             ]);
     }
 
