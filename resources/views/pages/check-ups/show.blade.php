@@ -33,7 +33,7 @@
                         <span><strong>Name</strong></span> <span>{{ $checkUp->patient_name }}</span>
                     </p>
                     <p>
-                        <span><strong>Age</strong></span> <span>{{ $checkUp->age }}</span>
+                        <span><strong>Age</strong></span> <span>{{ $checkUp->age() }}</span>
                     </p>
                     <p>
                         <span><strong>Weight (kg)</strong></span> <span>{{ $checkUp->weight_in_kg }}</span>

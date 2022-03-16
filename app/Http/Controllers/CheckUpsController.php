@@ -23,7 +23,7 @@ class CheckUpsController extends Controller
     {
         $this->middleware('role:Administrator|Barangay Nutrition Scholar')
             ->except([
-                'index'
+                'index', 'show'
             ]);
     }
 
@@ -140,7 +140,7 @@ class CheckUpsController extends Controller
     {
         $checkUp = CheckUp::with(['details.symptom', 'result'])->find($checkUp->id);
         $progress = $checkUp->progress->map->symptom_count;
-        $foodRecommendations = $service->viaAge($checkUp->age);
+        $foodRecommendations = $service->viaAge($checkUp->age());
         $symptoms = $checkUp->details->map->symptom->map(fn($sym) => Str::of($sym->name)->lower()->snake());
         
         return view('pages.check-ups.show', [
