@@ -54,10 +54,17 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-md-6 offset-md-7">
-                                <p>
-                                    Create an account? <a href="{{ route('register') }}">Sign up</a>
-                                </p>
+                            <div class="col-md-6 offset-md-4 row">
+                                <div class="col">
+                                    <p>
+                                        <a href="{{ route('password.request') }}">Forgot Password?</a>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        Create an account? <a href="{{ route('register') }}">Sign up</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
 

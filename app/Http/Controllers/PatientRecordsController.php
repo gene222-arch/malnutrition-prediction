@@ -30,9 +30,9 @@ class PatientRecordsController extends Controller
                     'parent',
                     'notes'
                 ])
-                ->orderByDesc('created_at')
                 ->where('parent_id', auth()->user()->id)
-                ->paginate(10);
+                ->orderByDesc('created_at')
+                ->simplePaginate(10);
         }
 
         if (auth()->user()->hasAnyRole(['Administrator', 'Barangay Nutrition Scholar']))
@@ -40,10 +40,12 @@ class PatientRecordsController extends Controller
             $patientRecords = PatientRecord::query()
                 ->with([
                     'parent',
-                    'notes'
+                    'notes' => fn ($q) => $q->distinct('patient_record_id')
                 ])
-                ->orderByDesc('created_at')
-                ->paginate(10);
+                ->get()
+                ->unique('parent_id')
+                ->toQuery()
+                ->simplePaginate(10);
         }
 
         return view('pages.patient-record.index', [

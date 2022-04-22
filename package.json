@@ -21,6 +21,6 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "random-forest-classifier": "^0.6.0"
+        "random-forest-classifier": "^0.0.1"
     }
 }

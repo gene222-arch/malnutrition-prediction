@@ -1,6 +1,14 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    @if (Session::has('errorMessage'))
+        <div class="alert alert-danger" role="alert">
+            <strong>Error:</strong> {{ Session::get('errorMessage') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <form action="{{ route('check-ups.store') }}" method="post">
         @method('POST')
         @csrf
@@ -31,7 +39,7 @@
                                     >
                                         <option value="">Select Guardian</option>
                                         @foreach($parents as $parent)
-                                            <option value={{ $parent->id }} {{ old('parent_id') === $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
+                                            <option value={{ $parent->id }} {{ old('parent_id') == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                                         @endforeach 
                                     </select>
                                     @error('parent_id')

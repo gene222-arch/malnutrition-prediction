@@ -63,13 +63,13 @@
                             </span>
                         </td>
                         <td>
-                            <a class="btn btn-outline-info" href="{{ route('check-ups.show', $checkUp->id) }}">
+                            <a class="btn btn-outline-info" href="{{ route('check-ups.show', $checkUp->id) }}" title="View More Details">
                                 <i class="fas fa-eye text-info fa-1x"></i>
                             </a>
                         </td>
                         @hasanyrole('Administrator|Barangay Nutrition Scholar')
                             <td>
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal{{ $checkUp->id }}">
+                                <button type="button" class="btn btn-outline-danger" title="Delete Data" data-toggle="modal" data-target="#exampleModal{{ $checkUp->id }}">
                                     <i class="fas fa-archive"></i>
                                 </button>
                                 <div class="modal fade" id="exampleModal{{ $checkUp->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

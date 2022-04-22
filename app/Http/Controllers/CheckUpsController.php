@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CheckUp\StoreRequest;
 use App\Services\FoodRecommendationService;
 use App\Http\Requests\CheckUp\UpdateRequest;
+use App\Models\PatientRecordNote;
 
 class CheckUpsController extends Controller
 {
@@ -34,7 +35,12 @@ class CheckUpsController extends Controller
      */
     public function index()
     {
-        $checkUps = CheckUp::with('details')->orderByDesc('created_at')->paginate(10);
+        $checkUps = CheckUp::with('details')
+            ->orderByDesc('created_at')
+            ->get()
+            ->unique('patient_name')
+            ->toQuery()
+            ->simplePaginate(10);
 
         if (Auth::user()->hasRole('Parent')) 
         {
@@ -42,7 +48,10 @@ class CheckUpsController extends Controller
                 ->where('parent_id', Auth::user()->id)
                 ->with('details')
                 ->orderByDesc('created_at')
-                ->paginate(10);
+                ->get()
+                ->unique('patient_name')
+                ->toQuery()
+                ->simplePaginate(10);
         }
 
         return view('pages.check-ups.index', [
@@ -82,6 +91,15 @@ class CheckUpsController extends Controller
         try {
                 DB::transaction(function () use ($request, $service) 
                 {
+                    $parentPatienExist = CheckUp::where([
+                        [ 'parent_id', $request->parent_id ],
+                        [ 'patient_name', $request->patient_name ]
+                    ])
+                        ->exists();
+
+                    if ($parentPatienExist) throw new \Exception("Parent Patient already exists.");
+                    
+                    
                     $malnutritionSymptomIds = [];
 
                     if ($request->has('malnutrition_symptom_ids'))
@@ -121,7 +139,11 @@ class CheckUpsController extends Controller
                         ]);
             });
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            return Redirect::back()
+                ->withInput($request->validated())
+                ->with([
+                    'errorMessage' => $th->getMessage()
+                ]);
         }
 
         return Redirect::route('check-ups.index')->with([
@@ -167,10 +189,13 @@ class CheckUpsController extends Controller
             })
             ->all();
 
+        $notes = PatientRecordNote::where('patient_record_id', $checkUp->id)->get();
+
         return view('pages.check-ups.edit', [
             'checkUp' => $checkUp,
             'malnutritionSymptoms' => $malnutritionSymptoms,
-            'parents' => User::role('Parent')->get(['id', 'name'])
+            'parents' => User::role('Parent')->get(['id', 'name']),
+            'notes' => $notes
         ]);
     }
 

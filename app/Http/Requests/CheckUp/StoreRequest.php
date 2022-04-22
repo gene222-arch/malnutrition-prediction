@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'patient_name' => ['required', 'string'],
             'height_in_cm' => ['required', 'numeric'],
             'weight_in_kg' => ['required', 'numeric'],
-            'birthed_at' => ['required', 'date'],
+            'birthed_at' => ['required', 'date', 'before:today'],
             'malnutrition_symptom_ids.*' => ['required', 'integer', 'exists:malnutrition_symptoms,id'],
             'reason_for_visit' => ['required', 'string']
         ];

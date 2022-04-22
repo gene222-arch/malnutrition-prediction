@@ -178,5 +178,22 @@
                 @endforeach
             </div>
         </div>
+        <div class="col-12 mt-3">
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    View Notes
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                @foreach ($notes as $note)
+                    <div class="card">
+                        <div class="card-header">Notes</div>
+                        <div class="card-body">
+                        {{ $note->body }}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </form>
 @endsection
